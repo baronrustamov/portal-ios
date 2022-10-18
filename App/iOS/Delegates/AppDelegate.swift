@@ -395,6 +395,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         (AboutLicenseHandler.path, AboutLicenseHandler()),
         (SessionRestoreHandler.path, SessionRestoreHandler()),
         (ErrorPageHandler.path, ErrorPageHandler()),
+        (ReaderModeHandler.path, ReaderModeHandler(profile: profile))
       ]
     responders.forEach { (path, responder) in
       InternalSchemeHandler.responders[path] = responder

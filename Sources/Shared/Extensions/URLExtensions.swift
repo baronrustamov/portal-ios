@@ -494,6 +494,7 @@ public struct InternalURL {
   public enum Path: String {
     case errorpage = "errorpage"
     case sessionrestore = "sessionrestore"
+    case readermode = "readermode"
     func matches(_ string: String) -> Bool {
       return string.range(of: "/?\(self.rawValue)", options: .regularExpression, range: nil, locale: nil) != nil
     }
@@ -563,6 +564,10 @@ public struct InternalURL {
     // Error pages can be nested in session restore URLs, and session restore handler will forward them to the error page handler
     let path = url.absoluteString.hasPrefix(sessionRestoreHistoryItemBaseUrl) ? extractedUrlParam?.path : url.path
     return InternalURL.Path.errorpage.matches(path ?? "")
+  }
+  
+  public var isReaderModePage: Bool {
+    return InternalURL.Path.readermode.matches(url.path)
   }
 
   public var originalURLFromErrorPage: URL? {
