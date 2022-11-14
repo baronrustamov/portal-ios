@@ -379,6 +379,12 @@ class TopToolbarView: UIView, ToolbarProtocol {
     locationTextField.attributedPlaceholder = self.locationView.placeholder
     locationTextField.rightView = qrCodeButton
     locationTextField.rightViewMode = .never
+    
+    let dragInteraction = UIDragInteraction(delegate: self)
+    locationTextField.addInteraction(dragInteraction)
+
+    let dropInteraction = UIDropInteraction(delegate: self)
+    self.addInteraction(dropInteraction)
 
     locationContainer.addSubview(locationTextField)
     locationTextField.snp.remakeConstraints { make in
@@ -745,5 +751,35 @@ extension TopToolbarView: AutocompleteTextFieldDelegate {
   func autocompleteTextFieldDidCancel(_ autocompleteTextField: AutocompleteTextField) {
     leaveOverlayMode(didCancel: true)
     updateLocationBarRightView(showQrCodeButton: false)
+  }
+}
+
+extension TopToolbarView: UIDragInteractionDelegate, UIDropInteractionDelegate {
+  func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+    guard let text = locationTextField?.text else {
+      return []
+    }
+    
+    let dragItem = UIDragItem(itemProvider: NSItemProvider(object: text as NSString))
+    dragItem.localObject = locationTextField
+    return [dragItem]
+  }
+  
+  func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+    _ = session.loadObjects(ofClass: NSString.self) { urls in
+      guard let url = urls.first else {
+        return
+      }
+
+      self.submitLocation(url as? String)
+    }
+  }
+  
+  func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+    return session.canLoadObjects(ofClass: NSString.self)
+  }
+  
+  public func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+    return UIDropProposal(operation: .copy)
   }
 }
