@@ -8,6 +8,8 @@ import WebKit
 import Shared
 import os.log
 
+/// This script handler listens to frame loads and sends them back to iOS so that we can execute certain scripts when the frame is loaded
+/// TODO: @JS Rename to `FrameListenerScriptHandler`
 class SiteStateListenerScriptHandler: TabContentScript {
   private struct MessageDTO: Decodable {
     struct MessageDTOData: Decodable, Hashable {
@@ -35,7 +37,7 @@ class SiteStateListenerScriptHandler: TabContentScript {
     return WKUserScript.create(source: secureScript(handlerName: messageHandlerName,
                                                     securityToken: scriptId,
                                                     script: script),
-                               injectionTime: .atDocumentStart,
+                               injectionTime: .atDocumentEnd,
                                forMainFrameOnly: false,
                                in: scriptSandbox)
   }()
