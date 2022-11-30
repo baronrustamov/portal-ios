@@ -552,6 +552,43 @@ extension BrowserViewController: WKNavigationDelegate {
       completionHandler(.useCredential, URLCredential(trust: trust))
       return
     }
+    
+    // Certificate Pinning
+    if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
+      if let serverTrust = challenge.protectionSpace.serverTrust {
+        DispatchQueue.global(qos: .userInitiated).async {
+          let result = BraveCertificateUtility.verifyTrust(serverTrust, host: challenge.protectionSpace.host)
+          let certificateChain = (0..<SecTrustGetCertificateCount(serverTrust))
+            .compactMap { SecTrustGetCertificateAtIndex(serverTrust, $0) }
+          
+          DispatchQueue.main.async {
+            if result == 0 {
+              completionHandler(.useCredential, URLCredential(trust: serverTrust))
+            } else {
+              Logger.module.error("CERTIFICATE_INVALID")
+              completionHandler(.cancelAuthenticationChallenge, nil)
+              
+              let errorCode = CFNetworkErrors.cfurlErrorServerCertificateUntrusted.rawValue
+              
+              let underlyingError = NSError(domain: kCFErrorDomainCFNetwork as String,
+                                            code: Int(errorCode),
+                                            userInfo: ["_kCFStreamErrorCodeKey": Int(errorCode)])
+                                            
+              let error = NSError(domain: kCFErrorDomainCFNetwork as String,
+                                  code: Int(errorCode),
+                                  userInfo: [NSURLErrorFailingURLErrorKey: webView.url as Any,
+                                             "NSErrorPeerCertificateChainKey": certificateChain,
+                                             NSUnderlyingErrorKey: underlyingError])
+              
+              if let url = error.userInfo[NSURLErrorFailingURLErrorKey] as? URL {
+                ErrorPageHelper(certStore: self.profile.certStore).loadPage(error, forUrl: url, inWebView: webView)
+              }
+            }
+          }
+        }
+        return
+      }
+    }
 
     guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodHTTPBasic ||
           challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodHTTPDigest ||
