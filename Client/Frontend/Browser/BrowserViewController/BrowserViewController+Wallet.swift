@@ -317,10 +317,8 @@ extension Tab: BraveWalletProviderDelegate {
   
   func isPermissionDenied(_ type: BraveWallet.CoinType) -> Bool {
     switch type {
-    case .eth:
+    case .eth, .sol:
       return false
-    case .sol:
-      return !WalletDebugFlags.isSolanaDappsEnabled
     case .fil:
       return true
     @unknown default:
@@ -490,8 +488,7 @@ extension Tab: BraveWalletSolanaEventsListener {
   }
 
   @MainActor func updateSolanaProperties() async {
-    guard WalletDebugFlags.isSolanaDappsEnabled,
-          Preferences.Wallet.defaultSolWallet.value == Preferences.Wallet.WalletType.brave.rawValue,
+    guard Preferences.Wallet.defaultSolWallet.value == Preferences.Wallet.WalletType.brave.rawValue,
           let webView = webView,
           let provider = walletSolProvider else {
       return
