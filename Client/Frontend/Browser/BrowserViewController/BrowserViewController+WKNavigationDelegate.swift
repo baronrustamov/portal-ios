@@ -557,7 +557,9 @@ extension BrowserViewController: WKNavigationDelegate {
     if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
       if let serverTrust = challenge.protectionSpace.serverTrust {
         DispatchQueue.global(qos: .userInitiated).async {
-          let result = BraveCertificateUtility.verifyTrust(serverTrust, host: challenge.protectionSpace.host)
+          let result = BraveCertificateUtility.verifyTrust(serverTrust,
+                                                           host: challenge.protectionSpace.host,
+                                                           port: challenge.protectionSpace.port)
           let certificateChain = (0..<SecTrustGetCertificateCount(serverTrust))
             .compactMap { SecTrustGetCertificateAtIndex(serverTrust, $0) }
           
