@@ -96,8 +96,7 @@ extension BrowserViewController {
     let controller = WalletPanelHostingController(
       walletStore: walletStore,
       tabDappStore: tabDappStore,
-      origin: origin,
-      faviconRenderer: FavIconImageRenderer()
+      origin: origin
     )
     controller.delegate = self
     let popover = PopoverController(contentController: controller)
@@ -140,8 +139,7 @@ extension BrowserViewController: BraveWalletDelegate {
   public func walletPanel(_ panel: WalletPanelHostingController, presentWalletWithContext: PresentingContext, walletStore: WalletStore) {
     let walletHostingController = WalletHostingViewController(
       walletStore: walletStore,
-      presentingContext: presentWalletWithContext,
-      faviconRenderer: FavIconImageRenderer()
+      presentingContext: presentWalletWithContext
     )
     walletHostingController.delegate = self
     
@@ -583,11 +581,5 @@ extension Tab: BraveWalletKeyringServiceObserver {
   }
   
   func selectedAccountChanged(_ coin: BraveWallet.CoinType) {
-  }
-}
-
-extension FavIconImageRenderer: WalletFaviconRenderer {
-  func loadIcon(siteURL: URL, persistent: Bool, completion: ((UIImage?) -> Void)?) {
-    loadIcon(siteURL: siteURL, kind: .largeIcon, persistent: persistent, completion: completion)
   }
 }

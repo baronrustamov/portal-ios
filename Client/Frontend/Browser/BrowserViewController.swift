@@ -25,6 +25,7 @@ import BraveVPN
 import BraveNews
 import os.log
 import BraveTalk
+import BraveFavicon
 import Onboarding
 import Growth
 
@@ -240,7 +241,7 @@ public class BrowserViewController: UIViewController {
   var isOnboardingOrFullScreenCalloutPresented = false
 
   private(set) var widgetBookmarksFRC: NSFetchedResultsController<Favorite>?
-  var widgetFaviconFetchers: [FaviconFetcher] = []
+  var widgetFaviconFetchers: [Task<Favicon, Error>] = []
   let deviceCheckClient: DeviceCheckClient?
   
   // Brave Talk native implementations
@@ -2406,6 +2407,7 @@ extension BrowserViewController: TabDelegate {
       DeAmpScriptHandler(tab: tab),
       SiteStateListenerScriptHandler(tab: tab),
       CosmeticFiltersScriptHandler(tab: tab),
+      FaviconScriptHandler(tab: tab),
       
       tab.contentBlocker,
       tab.requestBlockingContentHelper,

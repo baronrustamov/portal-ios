@@ -22,10 +22,11 @@ let package = Package(
     .library(name: "Data", targets: ["Data"]),
     .library(name: "Storage", targets: ["Storage", "sqlcipher"]),
     .library(name: "BrowserIntentsModels", targets: ["BrowserIntentsModels"]),
-    .library(name: "BraveWidgetsModels", targets: ["BraveWidgetsModels"]),
+    .library(name: "BraveWidgets", targets: ["BraveWidgets"]),
     .library(name: "Strings", targets: ["Strings"]),
     .library(name: "BraveVPN", targets: ["BraveVPN"]),
     .library(name: "BraveNews", targets: ["BraveNews"]),
+    .library(name: "BraveFavicon", targets: ["BraveFavicon"]),
     .library(name: "Onboarding", targets: ["Onboarding"]),
     .library(name: "BraveTalk", targets: ["BraveTalk"]),
     .library(name: "Growth", targets: ["Growth"]),
@@ -80,12 +81,13 @@ let package = Package(
         "SwiftKeychainWrapper",
         "SwiftyJSON",
         "BrowserIntentsModels",
-        "BraveWidgetsModels",
+        "BraveWidgets",
         "BraveVPN",
         "BraveNews",
         "Onboarding",
         "Growth",
         "CodableHelpers",
+        "BraveFavicon",
         "BraveTalk",
         .product(name: "Lottie", package: "lottie-ios"),
         .product(name: "Collections", package: "swift-collections"),
@@ -138,7 +140,6 @@ let package = Package(
         .copy("Assets/Interstitial Pages/Styles/InterstitialStyles.css"),
         .copy("Assets/Interstitial Pages/Styles/NetworkError.css"),
         .copy("Assets/SearchPlugins"),
-        .copy("Assets/TopSites"),
         .copy("Frontend/Reader/Reader.css"),
         .copy("Frontend/Reader/Reader.html"),
         .copy("Frontend/Reader/ReaderViewLoading.html"),
@@ -178,6 +179,7 @@ let package = Package(
         .copy("Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Paged/WalletSolanaProviderScript.js"),
         .copy("Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Paged/SolanaWeb3Script.js"),
         .copy("Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Sandboxed/DeAmpScript.js"),
+        .copy("Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Sandboxed/FaviconScript.js"),
         .copy("Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Sandboxed/PlaylistScript.js"),
         .copy("Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Sandboxed/ResourceDownloaderScript.js"),
         .copy("Frontend/UserContent/UserScripts/Scripts_Dynamic/Scripts/Sandboxed/SelectorsPollerScript.js"),
@@ -301,9 +303,9 @@ let package = Package(
       plugins: ["IntentBuilderPlugin"]
     ),
     .target(
-      name: "BraveWidgetsModels",
-      dependencies: ["BraveShared"],
-      sources: ["BraveWidgets.intentdefinition", "LockScreenFavoriteIntentHandler.swift"],
+      name: "BraveWidgets",
+      dependencies: ["BraveFavicon", "LoggerPlugin"],
+      sources: ["BraveWidgets.intentdefinition", "LockScreenFavoriteIntentHandler.swift", "FavoritesWidgetData.swift"],
       plugins: ["IntentBuilderPlugin"]
     ),
     .target(name: "BraveSharedTestUtils"),
@@ -377,6 +379,20 @@ let package = Package(
       .copy("opml-test-files/states.opml"),
     ]),
     .target(name: "CodableHelpers"),
+    .target(
+      name: "BraveFavicon",
+      dependencies: [
+        "BraveCore",
+        "BraveShared",
+        "Shared",
+        "SDWebImage",
+      ],
+      resources: [
+        .copy("Assets/top_sites.json"),
+        .copy("Assets/TopSites")
+      ],
+      plugins: ["LoggerPlugin"]
+    ),
     .testTarget(name: "SharedTests", dependencies: ["Shared"]),
     .testTarget(
       name: "BraveSharedTests",

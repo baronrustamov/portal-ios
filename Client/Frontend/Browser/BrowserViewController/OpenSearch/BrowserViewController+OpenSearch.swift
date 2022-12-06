@@ -157,7 +157,7 @@ extension BrowserViewController {
   func downloadOpenSearchXML(_ url: URL, reference: String, title: String, iconURL: String?) {
     customSearchEngineButton.action = .loading
 
-    var searchEngineIcon = UIImage(named: "defaultFavicon", in: .module, compatibleWith: nil)!
+    var searchEngineIcon = Favicon.defaultImage
 
     if let faviconURLString = tabManager.selectedTab?.displayFavicon?.url,
       let iconURL = URL(string: faviconURLString) {

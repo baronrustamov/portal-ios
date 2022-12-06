@@ -968,11 +968,11 @@ class TabManager: NSObject {
       // Since this is a restored tab, reset the URL to be loaded as that will be handled by the SessionRestoreHandler
       tab.url = nil
       let isPrivateBrowsing = PrivateBrowsingManager.shared.isPrivateBrowsing
-      if let url = URL(string: urlString),
-        let faviconURL = Domain.getOrCreate(forUrl: url, persistent: !isPrivateBrowsing).favicon?.url {
-        let icon = Favicon(url: faviconURL, date: Date())
-        icon.width = 1
-        tab.favicons.append(icon)
+      if let url = URL(string: urlString) {
+        Task { @MainActor in
+          let favicon = try await FaviconFetcher.loadIcon(url: url, kind: .smallIcon, persistent: !isPrivateBrowsing)
+          tab.favicons.append(favicon)
+        }
       }
 
       // Set the UUID for the tab, asynchronously fetch the UIImage, then store

@@ -6,7 +6,7 @@
 import Foundation
 import SwiftUI
 import WidgetKit
-import BraveWidgetsModels
+import BraveWidgets
 import Strings
 
 struct LockScreenShortcutWidget: Widget {

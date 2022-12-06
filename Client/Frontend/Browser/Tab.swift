@@ -12,6 +12,7 @@ import SwiftyJSON
 import Data
 import os.log
 import BraveWallet
+import BraveFavicon
 
 protocol TabContentScriptLoader {
   static func loadUserScript(named: String) -> String?
@@ -511,7 +512,9 @@ class Tab: NSObject {
 
   var displayFavicon: Favicon? {
     if let url = url, InternalURL(url)?.isAboutHomeURL == true { return nil }
-    return favicons.max { $0.width! < $1.width! }
+    return favicons.max {
+      $0.image?.size.width ?? 0 < $1.image?.size.width ?? 0
+    }
   }
 
   var canGoBack: Bool {

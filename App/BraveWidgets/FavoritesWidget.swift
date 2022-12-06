@@ -7,6 +7,7 @@ import WidgetKit
 import SwiftUI
 import Strings
 import BraveShared
+import BraveWidgets
 
 struct FavoritesWidget: Widget {
   var body: some WidgetConfiguration {

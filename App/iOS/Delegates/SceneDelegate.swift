@@ -12,7 +12,7 @@ import Storage
 import Data
 import Brave
 import BrowserIntentsModels
-import BraveWidgetsModels
+import BraveWidgets
 import BraveVPN
 import Growth
 import os.log

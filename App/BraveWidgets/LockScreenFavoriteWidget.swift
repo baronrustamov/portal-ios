@@ -7,7 +7,7 @@ import Foundation
 import WidgetKit
 import SwiftUI
 import BraveShared
-import BraveWidgetsModels
+import BraveWidgets
 
 struct LockScreenFavoriteWidget: Widget {
   var body: some WidgetConfiguration {
@@ -26,7 +26,7 @@ struct LockScreenFavoriteWidget: Widget {
 
 private struct LockScreenFavoriteEntry: TimelineEntry {
   var date: Date
-  var favorite: BraveShared.WidgetFavorite?
+  var favorite: WidgetFavorite?
 }
 
 private struct LockScreenFavoriteProvider: IntentTimelineProvider {
@@ -123,9 +123,8 @@ struct LockScreenFavoriteViewWidget_Previews: PreviewProvider {
             title: "Brave",
             favicon: .init(
               image: nil,
-              backgroundColor: .white,
-              contentMode: .scaleAspectFit,
-              includePadding: false
+              isMonogramImage: false,
+              backgroundColor: .white
             )
           )
         )
@@ -139,9 +138,8 @@ struct LockScreenFavoriteViewWidget_Previews: PreviewProvider {
             title: "Wikipedia",
             favicon: .init(
               image: mockImage,
-              backgroundColor: nil,
-              contentMode: .scaleAspectFit,
-              includePadding: false
+              isMonogramImage: false,
+              backgroundColor: .clear
             )
           )
         )

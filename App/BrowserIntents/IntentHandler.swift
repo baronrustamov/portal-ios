@@ -5,7 +5,7 @@
 
 import Intents
 import BrowserIntentsModels
-import BraveWidgetsModels
+import BraveWidgets
 
 class IntentHandler: INExtension {
 

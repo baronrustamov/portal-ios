@@ -111,7 +111,7 @@ class VideoPlayerInfoBar: UIView {
     favIconImageView.cancelFaviconLoad()
     favIconImageView.clearMonogramFavicon()
     favIconImageView.contentMode = .scaleAspectFit
-    favIconImageView.image = FaviconFetcher.defaultFaviconImage
+    favIconImageView.image = Favicon.defaultImage
 
     if let url = URL(string: domain) {
       let domain = Domain.getOrCreate(forUrl: url, persistent: false)
