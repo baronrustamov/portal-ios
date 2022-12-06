@@ -8,7 +8,7 @@ import UIKit
 import BraveShared
 import BraveFavicon
 
-public extension UIImageView {
+extension UIImageView {
 
   private struct AssociatedObjectKeys {
     static var faviconTask: Int = 0

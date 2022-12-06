@@ -14,6 +14,7 @@ import BraveUI
 import BraveShared
 import BraveFavicon
 import os.log
+import BraveFavicon
 
 // MARK: UITableViewDataSource
 

@@ -12,6 +12,7 @@ import Onboarding
 import Storage
 import WebKit
 import os.log
+import BraveFavicon
 
 // TODO: Move this log to the Rewards/Ads target once we move Rewards/Ads files.
 let adsRewardsLog = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "ads-rewards")

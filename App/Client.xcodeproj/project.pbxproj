@@ -12,6 +12,7 @@
 		0A5E04FB23FEB53700E5A3E9 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A5E04FA23FEB53700E5A3E9 /* LaunchScreen.xcassets */; };
 		270ECFC82838210F0089B8B7 /* Brave in Frameworks */ = {isa = PBXBuildFile; productRef = 270ECFC72838210F0089B8B7 /* Brave */; };
 		27466BB1288EDB9C00584C90 /* RuntimeWarnings in Frameworks */ = {isa = PBXBuildFile; productRef = 27466BB0288EDB9C00584C90 /* RuntimeWarnings */; };
+		27536926293FEA84005E5B97 /* BraveFavicon in Frameworks */ = {isa = PBXBuildFile; productRef = 27536925293FEA84005E5B97 /* BraveFavicon */; };
 		279A828E28FEF01E00F55A5E /* BraveWidgets.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = CA0391E5271E1382000EB13C /* BraveWidgets.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
 		279A829228FEF0BF00F55A5E /* BraveShared in Frameworks */ = {isa = PBXBuildFile; productRef = 279A829128FEF0BF00F55A5E /* BraveShared */; };
 		279A9BCC2823370100F40FC6 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 279A9BCB2823370100F40FC6 /* SwiftKeychainWrapper */; };
@@ -304,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27FA217B2837F95400FA2C45 /* Strings in Frameworks */,
+				27536926293FEA84005E5B97 /* BraveFavicon in Frameworks */,
 				CA2EB7B3293FC38A00FC0A76 /* BraveWidgets in Frameworks */,
 				279C432E2853E51E00A9F708 /* DesignSystem in Frameworks */,
 				CA0391B6271E1023000EB13C /* SwiftUI.framework in Frameworks */,
@@ -587,6 +589,7 @@
 				27FA217C2837F9EE00FA2C45 /* BraveShared */,
 				279C432D2853E51E00A9F708 /* DesignSystem */,
 				CA2EB7B2293FC38A00FC0A76 /* BraveWidgets */,
+				27536925293FEA84005E5B97 /* BraveFavicon */,
 			);
 			productName = BraveWidgetsExtension;
 			productReference = CA0391B2271E1023000EB13C /* BraveWidgetsExtension.appex */;
@@ -2382,6 +2385,10 @@
 		27466BB0288EDB9C00584C90 /* RuntimeWarnings */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RuntimeWarnings;
+		};
+		27536925293FEA84005E5B97 /* BraveFavicon */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BraveFavicon;
 		};
 		279A829128FEF0BF00F55A5E /* BraveShared */ = {
 			isa = XCSwiftPackageProductDependency;

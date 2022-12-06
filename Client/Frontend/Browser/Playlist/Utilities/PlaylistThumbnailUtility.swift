@@ -12,6 +12,7 @@ import Shared
 import Data
 import BraveFavicon
 import os.log
+import BraveFavicon
 
 public class PlaylistThumbnailRenderer {
   private let timeout: TimeInterval = 3

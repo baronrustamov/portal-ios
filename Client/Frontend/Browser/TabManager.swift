@@ -14,6 +14,7 @@ import BraveWallet
 import BraveFavicon
 import os.log
 import Growth
+import BraveFavicon
 
 protocol TabManagerDelegate: AnyObject {
   func tabManager(_ tabManager: TabManager, didSelectedTabChange selected: Tab?, previous: Tab?)

@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 import BraveFavicon
 import os.log
+import BraveFavicon
 
 // MARK: - OpenSearch
 

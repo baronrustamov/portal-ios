@@ -11,6 +11,7 @@ import BraveCore
 import BraveUI
 import BraveWallet
 import os.log
+import BraveFavicon
 
 extension WKNavigationAction {
   /// Allow local requests only if the request is privileged.
