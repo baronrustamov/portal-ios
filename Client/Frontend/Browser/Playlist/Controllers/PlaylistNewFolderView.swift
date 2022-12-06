@@ -10,6 +10,7 @@ import CoreData
 import Shared
 import BraveShared
 import BraveUI
+import BraveFavicon
 
 class PlaylistFolderImageLoader: ObservableObject {
   @Published var image: UIImage?

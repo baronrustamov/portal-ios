@@ -6,6 +6,8 @@
 import Foundation
 import CoreData
 import BraveShared
+import BraveFavicon
+import BraveWidgets
 
 extension BrowserViewController: NSFetchedResultsControllerDelegate {
   public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -35,7 +37,7 @@ extension BrowserViewController: NSFetchedResultsControllerDelegate {
             
             group.addTask {
               let favicon = try? await FaviconFetcher.loadIcon(url: url, kind: .largeIcon, persistent: true)
-              return IndexedWidgetFavorite(index: index, favorite: .init(url: url, favicon: favicon))
+              return IndexedWidgetFavorite(index: index, favorite: .init(url: url, title: fav.title, favicon: favicon))
             }
           }
           

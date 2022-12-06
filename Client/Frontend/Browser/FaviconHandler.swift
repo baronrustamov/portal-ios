@@ -50,10 +50,10 @@ extension FaviconHandler: TabEventHandler {
       }
       // No favicon fetched from metadata, trying base domain's standard favicon location.
       else if let baseURL = tab.url?.domainURL {
-        let (favicon, data) = try await loadFaviconURL(
+        let favicon = try await loadFaviconURL(
           baseURL.appendingPathComponent("favicon.ico").absoluteString,
           forTab: tab)
-        TabEvent.post(.didLoadFavicon(favicon, with: data), for: tab)
+        TabEvent.post(.didLoadFavicon(favicon), for: tab)
       }
     }
   }

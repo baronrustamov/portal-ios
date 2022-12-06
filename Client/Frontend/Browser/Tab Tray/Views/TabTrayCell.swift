@@ -66,13 +66,8 @@ class TabCell: UICollectionViewCell {
     favicon.cancelFaviconLoad()
 
     // Tab may not be restored and so may not include a tab URL yet...
-    if let favicon = tab.displayFavicon, let url = favicon.url.asURL {
-      WebImageCacheManager.shared.load(
-        from: url,
-        completion: { [weak self] image, _, _, _, loadedURL in
-          guard url == loadedURL else { return }
-          self?.favicon.image = image ?? Favicon.defaultImage
-        })
+    if let displayFavicon = tab.displayFavicon {
+      favicon.image = displayFavicon.image ?? Favicon.defaultImage
     } else if let url = tab.url, !url.isLocal, !InternalURL.isValid(url: url) {
       favicon.loadFavicon(for: url)
     } else {

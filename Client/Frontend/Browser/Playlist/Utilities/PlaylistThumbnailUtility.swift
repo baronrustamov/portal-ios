@@ -10,6 +10,7 @@ import Combine
 import SDWebImage
 import Shared
 import Data
+import BraveFavicon
 import os.log
 
 public class PlaylistThumbnailRenderer {

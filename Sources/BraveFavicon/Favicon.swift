@@ -20,7 +20,7 @@ public class Favicon: Codable {
                                         isMonogramImage: false,
                                         backgroundColor: .clear)
 
-  init(image: UIImage?, isMonogramImage: Bool, backgroundColor: UIColor) {
+  public init(image: UIImage?, isMonogramImage: Bool, backgroundColor: UIColor) {
     self.image = image
     self.isMonogramImage = isMonogramImage
     self.backgroundColor = backgroundColor

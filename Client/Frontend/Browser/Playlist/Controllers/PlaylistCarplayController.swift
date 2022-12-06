@@ -11,6 +11,7 @@ import Data
 import BraveShared
 import Shared
 import CoreData
+import BraveFavicon
 import os.log
 
 private enum PlaylistCarPlayTemplateID: String {

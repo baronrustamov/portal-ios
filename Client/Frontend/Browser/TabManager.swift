@@ -11,6 +11,7 @@ import Data
 import CoreData
 import BraveCore
 import BraveWallet
+import BraveFavicon
 import os.log
 import Growth
 
@@ -357,19 +358,18 @@ class TabManager: NSObject {
     guard let newSelectedTab = tab, let previousTab = previous, let newTabUrl = newSelectedTab.url, let previousTabUrl = previousTab.url else { return }
 
     if !PrivateBrowsingManager.shared.isPrivateBrowsing {
-      let previousFaviconURL = URL(string: previousTab.displayFavicon?.url ?? "")
-      if previousFaviconURL == nil && !previousTabUrl.isLocal {
+      if previousTab.displayFavicon == nil {
         adsRewardsLog.warning("No favicon found in \(previousTab) to report to rewards panel")
       }
       rewards?.reportTabUpdated(
-        tab: previousTab, url: previousTabUrl, faviconURL: previousFaviconURL, isSelected: false,
+        tab: previousTab, url: previousTabUrl, faviconURL: nil, isSelected: false,
         isPrivate: previousTab.isPrivate)
-      let faviconURL = URL(string: newSelectedTab.displayFavicon?.url ?? "")
-      if faviconURL == nil && !newTabUrl.isLocal {
+
+      if newSelectedTab.displayFavicon == nil && !newTabUrl.isLocal {
         adsRewardsLog.warning("No favicon found in \(newSelectedTab) to report to rewards panel")
       }
       rewards?.reportTabUpdated(
-        tab: newSelectedTab, url: newTabUrl, faviconURL: faviconURL, isSelected: true,
+        tab: newSelectedTab, url: newTabUrl, faviconURL: nil, isSelected: true,
         isPrivate: newSelectedTab.isPrivate)
     }
   }

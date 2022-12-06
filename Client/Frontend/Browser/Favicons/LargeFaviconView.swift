@@ -11,7 +11,7 @@ import BraveFavicon
 
 /// Displays a large favicon given some favorite
 class LargeFaviconView: UIView {
-  func loadFavicon(siteURL: URL, monogramFallbackCharacter: String? = nil) {
+  func loadFavicon(siteURL: URL, monogramFallbackCharacter: Character? = nil) {
     faviconTask?.cancel()
     faviconTask = Task { @MainActor in
       do {
